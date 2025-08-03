@@ -12,12 +12,12 @@ services:
       - ./spa/src:/usr/src/app/src
       - ./spa/vite.config.ts:/usr/src/app/vite.config.ts
       - ./spa/.env:/usr/src/app/.env
+      - /usr/src/app/node_modules
     networks:
       - sail
     environment:
-      VITE_BASE_URL: http://localhost:8000
+      VITE_BASE_URL: http://instituto-lucas-silva
       NODE_ENV: development
-    command: bash /usr/src/app/docker/entrypoint.sh
     image: react-spa
 
   laravel:
@@ -26,9 +26,6 @@ services:
       context: ./api
       dockerfile: Dockerfile
     working_dir: /var/www/html
-    ports:
-      - 8001:80
-      - 5173:5173
     volumes:
       - './api/app:/var/www/html/app'
       - './api/bootstrap:/var/www/html/bootstrap'
@@ -47,10 +44,11 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - 80:80
       - 443:443
+      - 80:80
     volumes:
       - ./api/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./api/docker/nginx/ssl:/etc/nginx/ssl
       - ./api:/var/www/html
     depends_on:
       - laravel
@@ -76,7 +74,7 @@ services:
     image: dpage/pgadmin4:latest
     restart: unless-stopped
     ports:
-      - "8081:80"
+      - "8081:8081"
     environment:
       PGADMIN_DEFAULT_EMAIL: user@localhost.com
       PGADMIN_DEFAULT_PASSWORD: password
