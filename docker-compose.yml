@@ -21,12 +21,14 @@ services:
     image: react-spa
 
   laravel:
+    container_name: 'laravel'
     build:
       context: ./api
       dockerfile: Dockerfile
     working_dir: /var/www/html
     ports:
-      - 80:80
+      - 8001:80
+      - 5173:5173
     volumes:
       - './api/app:/var/www/html/app'
       - './api/bootstrap:/var/www/html/bootstrap'
@@ -45,7 +47,8 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "80:80"
+      - 80:80
+      - 443:443
     volumes:
       - ./api/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./api:/var/www/html
@@ -73,7 +76,7 @@ services:
     image: dpage/pgadmin4:latest
     restart: unless-stopped
     ports:
-      - "8081:8081"
+      - "8081:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: user@localhost.com
       PGADMIN_DEFAULT_PASSWORD: password
