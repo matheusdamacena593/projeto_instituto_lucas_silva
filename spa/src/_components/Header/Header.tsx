@@ -1,51 +1,57 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import logo from "../../../public/imgs/logo.png";
+import './header.scss';
 
 const Header: React.FC = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div className="container">
-        <Link className="navbar-brand" to="/">
-          Minha Plataforma
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+    <>
+      <nav className="navbar navbar-expand-lg bg-custom shadow">
+        <div className="container d-flex flex-column align-items-center">
+          <a className="navbar-brand fw-bold d-flex align-items-center" href="#">
+            <img
+              src={logo}
+              alt="Instituto Lucas Silva"
+              style={{ height: "100px", marginRight: "10px" }}
+            />
+          </a>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/acoes">
-                Ações
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/transparencia">
-                Transparência
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/fale-conosco">
-                Fale Conosco
-              </Link>
-            </li>
-          </ul>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+
+          <div className="collapse navbar-collapse justify-content-center mt-3" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <a className="nav-link active" href="#">Home</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Sobre o instituto</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Projetos</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Eventos</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Quero apoiar</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Fale conosco</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 
