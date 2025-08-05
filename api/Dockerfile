@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
     vim \
     gnupg \
     ca-certificates \
-    lsb-release
+    lsb-release \
+    postgresql-client
 
 # Instala extensões PHP
 RUN docker-php-ext-install pdo pdo_pgsql mbstring zip opcache
@@ -37,6 +38,10 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" \
 # Define o diretório de trabalho
 WORKDIR /var/www/html
 
+COPY docker/start-container /usr/local/bin/start-container
+
+RUN chmod +x /usr/local/bin/start-container
+
 # COPY ["package.json", "package-lock.json", "/var/www/html/"]
 
 # Copia todos os arquivos do projeto Laravel para o container
@@ -54,4 +59,4 @@ RUN php artisan key:generate
 RUN chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R 775 storage bootstrap/cache
 
-CMD ["php-fpm"]
+ENTRYPOINT ["start-container"]
