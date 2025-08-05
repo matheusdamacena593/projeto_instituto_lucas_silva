@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import PageBase from "./Pages/PageBase";
 import Home from "./Pages/Home";
+import Login from "./Pages/Login";
 
 export default function AppRouter() {
   return (
@@ -17,6 +18,7 @@ export default function AppRouter() {
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
