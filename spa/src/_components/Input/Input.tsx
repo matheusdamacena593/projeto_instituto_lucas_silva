@@ -5,8 +5,8 @@ type TypeInputProps = 'text' | 'password';
 interface InputProps {
     placeholder?: string;
     type?: TypeInputProps;
-    value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     required?: boolean;
 }
 
