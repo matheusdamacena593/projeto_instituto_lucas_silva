@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState}, { useState } from 'react';
 import Input from '../../_components/Input/Input';
 import Button from '../../_components/Button/Button';
 import Feedback from "../../_components/Feedback/Feedback.tsx";
 import logo from '../../Image/lucas_silva-removebg-preview.png';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from '@fortawesome/free-solid-svg-icons';
-import style from './Admin.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Login() {
     const [usuario, setUsuario] = useState('');
@@ -107,12 +106,11 @@ export default function Login() {
                             />
                         </div>
 
-                        <div className="d-grid">
-                            <Button type="submit" text="Entrar" />
-                        </div>
-                    </form>
-                </div>
+                    <div className="d-grid">
+                        <Button type="submit" disabled={loading} text="Entrar" />
+                    </div>
+                </form>
             </div>
-        </>
+        </div>
     );
 }

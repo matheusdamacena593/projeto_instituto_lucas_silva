@@ -16,7 +16,7 @@ services:
     networks:
       - sail
     environment:
-      VITE_BASE_URL: http://instituto-lucas-silva
+      VITE_BASE_URL: https://instituto-lucas-silva.com.br
       NODE_ENV: development
     image: react-spa
 

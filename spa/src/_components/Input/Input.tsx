@@ -7,6 +7,9 @@ interface InputProps {
     type?: TypeInputProps;
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    required?: boolean;
 }
 
 export default function Input({
@@ -14,16 +17,22 @@ export default function Input({
     type = 'text',
     value,
     onChange,
+    value,
+    onChange,
+    required = false,
 }: InputProps) {
     return (
         <div>
             <input
                 placeholder={placeholder}
                 type={type}
+                value={value}
+                onChange={onChange}
                 className={styles.customInput}
                 value={value}
                 onChange={onChange}
+                required={required}
             />
         </div>
-    )
+    );
 }
