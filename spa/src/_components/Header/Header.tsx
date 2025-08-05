@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../../public/imgs/logo.png";
-import './header.scss';
+import './Header.scss';
 
 const Header: React.FC = () => {
   return (
@@ -30,10 +30,10 @@ const Header: React.FC = () => {
           <div className="collapse navbar-collapse justify-content-center mt-3" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link active" href="#">Home</a>
+                <a className="nav-link active" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Sobre o instituto</a>
+                <a className="nav-link" href="/sobre-o-instituto">Sobre o instituto</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">Projetos</a>

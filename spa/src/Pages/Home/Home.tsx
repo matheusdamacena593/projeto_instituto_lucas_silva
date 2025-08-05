@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faLightbulb, faHandshake } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom"; // se estiver usando React Router
 import homeImage from "../../../public/imgs/criancas-africanas.png"; // substitua pelo caminho correto da imagem
-import "./home.scss";
+import "./Home.scss";
 
 const Home: React.FC = () => {
     return (
