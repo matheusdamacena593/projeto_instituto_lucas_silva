@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Input from '../../_components/Input/Input';
 import Button from '../../_components/Button/Button';
 import logo from '../../Image/lucas_silva-removebg-preview.png';
@@ -7,9 +7,35 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 import style from './Admin.module.scss';
 
 export default function Login() {
-    const handleLogin = (e: React.FormEvent) => {
+    const [usuario, setUsuario] = useState('');
+    const [senha, setSenha] = useState('')
+
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Lógica de login aqui
+
+        try {
+            const response = await fetch('https://instituto-lucas-silva/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: usuario,
+                    password: senha,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Login realizado com sucesso!');
+                localStorage.setItem('token', data.access_token);
+            } else {
+                alert(data.message || 'Erro no login');
+            }
+        } catch (error) {
+            console.error('Erro ao fazer login:', error);
+        }
     };
 
     return (
@@ -28,11 +54,22 @@ export default function Login() {
 
                     <form onSubmit={handleLogin}>
                         <div className="mb-3">
-                            <Input placeholder="Usuário" type="text" />
+                            <Input
+                                placeholder="Usuário"
+                                type="text"
+                                onChange={e => setUsuario(e.target.value)}
+                                value={usuario}
+                            />
+
                         </div>
 
                         <div className="mb-4">
-                            <Input placeholder="Senha" type="password" />
+                            <Input
+                                placeholder="Senha"
+                                type="password"
+                                onChange={e => setSenha(e.target.value)}
+                                value={senha}
+                            />
                         </div>
 
                         <div className="d-grid">

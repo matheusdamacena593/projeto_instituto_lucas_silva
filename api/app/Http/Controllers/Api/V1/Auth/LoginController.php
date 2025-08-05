@@ -15,7 +15,7 @@ class LoginController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|unique:usuarios',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
 
         $user = Usuario::create([
