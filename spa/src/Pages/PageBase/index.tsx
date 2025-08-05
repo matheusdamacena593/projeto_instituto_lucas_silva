@@ -6,7 +6,7 @@ export default function PageBase() {
 
   return (
     <main>
-      <div className="fixed-top">
+      <div>
         <Header />
       </div>
       <div>

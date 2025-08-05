@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Input from '../../_components/Input/Input';
 import Button from '../../_components/Button/Button';
 import logo from '../../Image/lucas_silva-removebg-preview.png';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Login() {
-    const handleLogin = (e: React.FormEvent) => {
+    const { login, loading } = useAuth();
+    const [usuario, setUsuario] = useState('');
+    const [senha, setSenha] = useState('');
+    const [erro, setErro] = useState('');
+
+    const navigate = useNavigate();
+
+    async function handleLogin(e: React.FormEvent) {
         e.preventDefault();
-        // Lógica de login aqui
+        setErro('');
+
+        try {
+            await login(usuario, senha);
+            
+            navigate('/admin');
+        } catch (error: any) {
+            if (error.response && error.response.status === 401) {
+                setErro('Credenciais inválidas');
+            } else {
+                setErro('Erro ao tentar fazer login');
+            }
+        }
     };
 
     return (
@@ -21,17 +42,35 @@ export default function Login() {
                     />
                 </div>
 
+                {erro && (
+                    <div className="alert alert-danger text-center" role="alert">
+                        {erro}
+                    </div>
+                )}
+
                 <form onSubmit={handleLogin}>
                     <div className="mb-3">
-                        <Input placeholder="Usuário" type="text" />
+                        <Input
+                            placeholder="Usuário"
+                            type="text"
+                            value={usuario}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsuario(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <div className="mb-4">
-                        <Input placeholder="Senha" type="password" />
+                        <Input
+                            placeholder="Senha"
+                            type="password"
+                            value={senha}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSenha(e.target.value)}
+                            required
+                        />
                     </div>
 
                     <div className="d-grid">
-                        <Button type="submit" text="Entrar" />
+                        <Button type="submit" disabled={loading} text="Entrar" />
                     </div>
                 </form>
             </div>

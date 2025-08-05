@@ -15,7 +15,7 @@ class LoginController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|unique:usuarios',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
 
         $user = Usuario::create([
@@ -45,7 +45,9 @@ class LoginController extends Controller
 
         return response()->json([
             'access_token' => $token,
-            'token_type' => 'Bearer',
+            'user' => [
+                'nome' => $user->name,
+            ],
         ]);
     }
 
