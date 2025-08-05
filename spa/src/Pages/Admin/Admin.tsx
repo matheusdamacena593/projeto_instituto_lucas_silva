@@ -1,20 +1,28 @@
-import React, {useState}, { useState } from 'react';
+import React, {useState} from 'react';
 import Input from '../../_components/Input/Input';
 import Button from '../../_components/Button/Button';
 import Feedback from "../../_components/Feedback/Feedback.tsx";
 import logo from '../../Image/lucas_silva-removebg-preview.png';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import style from './Admin.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../../contexts/AuthContext";
 
-export default function Login() {
+export default function LoginAdmin() {
     const [usuario, setUsuario] = useState('');
     const [senha, setSenha] = useState('')
     const [feedback, setFeedback] = useState(false);
     const [message, setMessage] = useState('');
     const [color, setColor] = useState('');
     const [textColor, setTextColor] = useState('');
+    const { login, loading } = useAuth();
 
-    const handleLogin = async (e: React.FormEvent) => { e.preventDefault();
+    const navigate = useNavigate();
+
+    async function handleLogin(e: React.FormEvent) {
+        e.preventDefault();
+
         if (!usuario.trim() || !senha.trim()) {
             setMessage('Informe os campos abaixo!');
             setFeedback(true);
@@ -25,41 +33,27 @@ export default function Login() {
         }
 
         try {
-            const response = await fetch('https://instituto-lucas-silva/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: usuario,
-                    password: senha,
-                }),
-            });
+            await login(usuario, senha);
 
-            const data = await response.json();
+            navigate('/admin');
 
-            if (response.ok) {
-                setFeedback(true);
-                setMessage('Login realizado com sucesso!');
-                setColor('#71c55b');
-                setTextColor('white');
-                setTimeout(() => setFeedback(false), 3000);
-                localStorage.setItem('token', data.access_token);
-            } else {
-                setFeedback(true);
-                setMessage('Email e/ou senha inválidos!');
-                setColor('red');
-                setTextColor('white');
-                setTimeout(() => setFeedback(false), 3000);
-            }
-        } catch (error) {
+        // Sa merda tira o erro desse catch maldito aí
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            console.log(error);
             setFeedback(true);
-            setMessage('Problema ao se comunicar com o servidor');
+
+            if (error.response && error.response.status === 401) {
+                setMessage('Email e/ou senha inválidos!');
+            } else {
+                setMessage('Problema ao se comunicar com o servidor.');
+            }
+
             setColor('red');
             setTextColor('white');
             setTimeout(() => setFeedback(false), 3000);
         }
-    };
+    }
 
     return (
         <>
@@ -106,11 +100,12 @@ export default function Login() {
                             />
                         </div>
 
-                    <div className="d-grid">
-                        <Button type="submit" disabled={loading} text="Entrar" />
-                    </div>
-                </form>
+                        <div className="d-grid">
+                            <Button type="submit" disabled={loading} text="Entrar" />
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
