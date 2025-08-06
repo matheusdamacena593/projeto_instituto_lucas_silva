@@ -1,4 +1,3 @@
-import Footer from "../../../_components/Footer/Footer";
 import HeaderAdmin from "../../../_components/HeaderAdmin/HeaderAdmin"; // importe seu sidebar
 import { Outlet } from "react-router-dom";
 
@@ -15,9 +14,6 @@ export default function PageBaseAdmin() {
           <Outlet />
         </main>
       </div>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }
