@@ -42,7 +42,11 @@ export default function FaleConosco(){
                             <Button
                                 text="Enviar Mensagem"
                                 type="submit"
-                                style={{ width: '30%', height: 35 }}
+                                style={{
+                                    maxWidth: 150,
+                                    height: 35,
+                                    whiteSpace: 'nowrap'
+                                }}
                             />
                         </div>
                     </form>
