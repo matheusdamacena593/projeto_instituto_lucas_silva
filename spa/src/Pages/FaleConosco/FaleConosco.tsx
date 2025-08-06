@@ -8,7 +8,7 @@ export default function FaleConosco(){
     return (
         <div className={styles.contactContainer}>
             <div className="d-flex justify-content-center">
-                <div className="contact-form-wrapper col-lg-8 col-md-10">
+                <div className={`contact-form-wrapper col-lg-8 col-md-10 ${styles.contactCard}`}>
                     <h1 className={styles.contactTitle}>Envie-nos uma mensagem!</h1>
                     <form>
                         <Input
@@ -54,5 +54,6 @@ export default function FaleConosco(){
             </div>
         </div>
     );
+
 
 };
