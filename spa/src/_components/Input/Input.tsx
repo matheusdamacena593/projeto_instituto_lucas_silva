@@ -1,6 +1,6 @@
 import styles from './InputStyle.module.scss';
 
-type TypeInputProps = 'text' | 'password' | 'email';
+type TypeInputProps = 'text' | 'password' | 'email' | 'number';
 
 interface InputProps {
     placeholder?: string;

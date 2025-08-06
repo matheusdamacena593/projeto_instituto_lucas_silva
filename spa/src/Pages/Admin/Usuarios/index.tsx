@@ -50,6 +50,7 @@ export default function Usuarios() {
 
   const handleEdit = (user: Usuario) => {
     // Navegação para tela de edição
+    console.log(user);
   };
 
   const handleDelete = (user: Usuario) => {
