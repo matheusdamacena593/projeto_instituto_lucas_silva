@@ -1,4 +1,5 @@
 import styles from './ButtonStyle.module.scss';
+import React from "react";
 
 type TypeButtonProps = 'submit' | 'reset' | 'button';
 
@@ -7,13 +8,15 @@ interface ButtonProps {
     onClick?: () => void;
     type?: TypeButtonProps;
     disabled?: boolean;
+    style?: React.CSSProperties;
 }
 
 export default function Button({
     text,
     onClick,
     type = 'button',
-    disabled = false
+    disabled = false,
+    style,
 }: ButtonProps) {
     return (
         <button
@@ -22,6 +25,7 @@ export default function Button({
             title={text}
             className={styles.customButton}
             disabled={disabled}
+            style={style}
         >
             {text}
         </button>

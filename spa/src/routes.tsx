@@ -12,6 +12,7 @@ import Usuarios from "./Pages/Admin/Usuarios";
 import Home from "./Pages/Home/Home.tsx";
 import Admin from "./Pages/Admin/Admin.tsx";
 import SobreInstituto from "./Pages/SobreInstituto/SobreInstituto.tsx"
+import FaleConosco  from "./Pages/FaleConosco/FaleConosco.tsx";
 
 export default function AppRouter() {
   return (
@@ -21,6 +22,7 @@ export default function AppRouter() {
           <Route index element={<Home />} />
           <Route path="/teste" element={<div className="mt-5 p-5">Aqui é só um teste</div>} />
           <Route path="/sobre-o-instituto" element={<SobreInstituto />} />
+          <Route path="/fale-conosco" element={<FaleConosco />} />
         </Route>
 
         <Route

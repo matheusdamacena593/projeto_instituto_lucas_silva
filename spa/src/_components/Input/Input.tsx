@@ -1,6 +1,6 @@
 import styles from './InputStyle.module.scss';
 
-type TypeInputProps = 'text' | 'password';
+type TypeInputProps = 'text' | 'password' | 'email';
 
 interface InputProps {
     placeholder?: string;
@@ -8,6 +8,7 @@ interface InputProps {
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     required?: boolean;
+    className?: string;
 }
 
 export default function Input({
@@ -16,6 +17,7 @@ export default function Input({
     value,
     onChange,
     required = false,
+    className,
 }: InputProps) {
     return (
         <div>
@@ -24,7 +26,7 @@ export default function Input({
                 type={type}
                 value={value}
                 onChange={onChange}
-                className={styles.customInput}
+                className={`${styles.customInput} ${className}`}
                 required={required}
             />
         </div>
