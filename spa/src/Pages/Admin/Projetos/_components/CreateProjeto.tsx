@@ -51,14 +51,29 @@ export default function CreateProjeto() {
         setSuccess(null);
 
         try {
-            const response = await apiService.post("/api/admin/usuarios", formData);
+            const data = new FormData();
+            data.append("titulo", formData.titulo);
+            data.append("publicoAlvo", formData.publicoAlvo);
+            data.append("dataInscricao", formData.dataInscricao);
+            data.append("dataInicio", formData.dataInicio);
+            data.append("vagas", formData.vagas);
+            if (formData.imagem) {
+                data.append("imagem", formData.imagem);
+            }
+
+            const response = await apiService.post("/api/admin/projetos", data, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
             setSuccess(response.data.msg);
-            setTimeout(() => navigate("/admin/usuarios"), 1000);
+            setTimeout(() => navigate("/admin/projetos"), 1000);
         } catch (error: any) {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors || {});
             } else {
-                setErrors({ general: "Erro ao cadastrar usuário." });
+                setErrors({ general: "Erro ao cadastrar projeto." });
             }
         } finally {
             setLoading(false);
@@ -111,7 +126,7 @@ export default function CreateProjeto() {
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                            <Form.Label>Data de inscrição</Form.Label>
+                        <Form.Label>Data de inscrição</Form.Label>
                         <Form.Control
                             type="date"
                             name="dataInscricao"

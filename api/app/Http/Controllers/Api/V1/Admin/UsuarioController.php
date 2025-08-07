@@ -80,35 +80,42 @@ class UsuarioController extends Controller
 
     public function update(Request $request, $id)
     {
-        $usuario = Usuario::findOrFail($id);
+        try {
+            $usuario = Usuario::findOrFail($id);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:100',
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('usuarios')->ignore($usuario->id),
-            ],
-            'username' => [
-                'required',
-                'string',
-                'max:100',
-                Rule::unique('usuarios')->ignore($usuario->id),
-            ],
-            'password' => 'nullable|string|min:8',
-            'status' => 'required|boolean',
-        ]);
+            $validated = $request->validate([
+                'name' => 'required|string|max:100',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('usuarios')->ignore($usuario->id),
+                ],
+                'username' => [
+                    'required',
+                    'string',
+                    'max:100',
+                    Rule::unique('usuarios')->ignore($usuario->id),
+                ],
+                'password' => 'nullable|string|min:8',
+                'status' => 'required|boolean',
+            ]);
 
-        if (empty($validated['password'])) {
-            unset($validated['password']);
+            if (empty($validated['password'])) {
+                unset($validated['password']);
+            }
+
+            $usuario->update($validated);
+
+            return response()->json([
+                'msg' => 'Usuário atualizado com sucesso!',
+                'usuario' => $usuario,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'msg' => 'Erro ao atualizar usuário.',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        $usuario->update($validated);
-
-        return response()->json([
-            'msg' => 'Usuário atualizado com sucesso!',
-            'usuario' => $usuario,
-        ], 200);
     }
 
 }
