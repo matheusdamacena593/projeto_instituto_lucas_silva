@@ -21,10 +21,12 @@ export default function Projetos({
  className,
 }: InterfaceProjeto) {
 
+    const baseURL = import.meta.env.VITE_BASE_URL;
+
     return (
         <div className={`${styles.cardProjetos} ${className || ''}`}>
             <div className={styles.image}>
-                <img src={imagem} alt="Projetos" />
+                <img src={`${baseURL}/storage/${imagem}`} alt={titulo} />
             </div>
 
             <div className={styles.textoContainer}>

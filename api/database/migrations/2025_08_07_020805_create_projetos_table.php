@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('data_inicio');
             $table->integer('vagas');
             $table->string('imagem')->nullable(); // caminho do arquivo ou nome
+            $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
             $table->timestamps();
         });
     }

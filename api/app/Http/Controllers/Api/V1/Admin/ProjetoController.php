@@ -35,6 +35,7 @@ class ProjetoController extends Controller
             'dataInicio' => 'required|date|after_or_equal:dataInscricao',
             'vagas' => 'required|integer|min:1',
             'imagem' => 'nullable|file|image|max:2048',
+            'usuario_id' => 'nullable|integer',
         ]);
 
         // Upload da imagem (salva no storage/app/public/projetos)
@@ -51,6 +52,7 @@ class ProjetoController extends Controller
             'data_inicio' => $validated['dataInicio'],
             'vagas' => $validated['vagas'],
             'imagem' => $imagemPath,
+            'usuario_id' => auth()->id(),
         ]);
 
         return response()->json([
@@ -71,6 +73,7 @@ class ProjetoController extends Controller
                 'dataInicio' => 'required|date|after_or_equal:dataInscricao',
                 'vagas' => 'required|integer|min:1',
                 'imagem' => 'nullable|file|image|max:2048',
+                'usuario_id' => 'nullable|integer',
             ]);
 
             // Tratar upload da imagem

@@ -30,4 +30,9 @@ class Usuario extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($password);
     }
+
+    public function projetos()
+    {
+        return $this->hasMany(Projeto::class, 'usuario_id');
+    }
 }
