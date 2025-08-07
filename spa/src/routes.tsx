@@ -14,6 +14,7 @@ import Admin from "./Pages/Admin/Admin.tsx";
 import SobreInstituto from "./Pages/SobreInstituto/SobreInstituto.tsx"
 import FaleConosco  from "./Pages/FaleConosco/FaleConosco.tsx";
 import QueroApoiar from "./Pages/QueroApoiar/QueroApoiar.tsx";
+import Projetos from "./Pages/Projetos/Projetos.tsx"
 
 export default function AppRouter() {
   return (
@@ -25,6 +26,7 @@ export default function AppRouter() {
           <Route path="/sobre-o-instituto" element={<SobreInstituto />} />
           <Route path="/fale-conosco" element={<FaleConosco />} />
           <Route path="/quero-apoiar" element={<QueroApoiar />}/>
+          <Route path="/projetos" element={<Projetos />}/>
         </Route>
 
         <Route

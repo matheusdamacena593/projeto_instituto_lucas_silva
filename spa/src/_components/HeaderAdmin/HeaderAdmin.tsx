@@ -19,7 +19,7 @@ const AdminSidebar = () => {
     const menuItems = [
         { icon: faTachometerAlt, label: "Dashboard", path: "/admin" },
         { icon: faUsers, label: "Usuários", path: "/admin/usuarios" },
-        { icon: faFileAlt, label: "Relatórios", path: "/relatorios" },
+        { icon: faFileAlt, label: "Projetos", path: "/admin/projetos" },
         { icon: faCog, label: "Configurações", path: "/configuracoes" },
     ];
 
