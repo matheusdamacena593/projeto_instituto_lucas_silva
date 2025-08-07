@@ -39,9 +39,6 @@ const Header: React.FC = () => {
                 <a className="nav-link" href="/projetos">Projetos</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Eventos</a>
-              </li>
-              <li className="nav-item">
                 <a className="nav-link" href="/quero-apoiar">Quero apoiar</a>
               </li>
               <li className="nav-item">

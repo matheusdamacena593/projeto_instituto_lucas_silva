@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Form, Alert, Spinner } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,16 @@ import apiService from "../../../../services/ApiService";
 export default function UpdateProjeto() {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
+  interface FormDataState {
+    titulo: string;
+    publicoAlvo: string;
+    dataInscricao: string;
+    dataInicio: string;
+    vagas: string;
+    imagem: File | null;
+  }
+
+  const [formData, setFormData] = useState<FormDataState>({
     titulo: "",
     publicoAlvo: "",
     dataInscricao: "",
@@ -25,12 +34,14 @@ export default function UpdateProjeto() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData((prev) => ({
-      ...prev,
-      imagem: file,
-    }));
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFormData((prev) => ({
+        ...prev,
+        imagem: file,
+      }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
