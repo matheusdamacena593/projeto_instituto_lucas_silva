@@ -41,12 +41,18 @@ class LoginController extends Controller
 
         $user = Usuario::where('username', $request->username)->firstOrFail();
 
+        // Verifica se o usuário está inativo
+        if (!$user->status) {
+            return response()->json(['msg' => 'Usuário inativo'], 403);
+        }
+
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
             'user' => [
                 'nome' => $user->name,
+                'username' => $user->username,
             ],
         ]);
     }

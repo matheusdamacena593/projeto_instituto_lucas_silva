@@ -10,10 +10,10 @@ return new class extends Migration
     {
         DB::table('usuarios')->insert([
             'name' => 'Administrador',
+            'email' => 'admin@gmail.com',
             'username' => 'admin',
             'password' => bcrypt('senha123'),
-            'created_at' => now(),
-            'updated_at' => now(),
+            'status' => true
         ]);
     }
 

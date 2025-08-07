@@ -22,9 +22,11 @@ export default function Login() {
             
             navigate('/admin');
         } catch (error: any) {
-            if (error.response && error.response.status === 401) {
-                setErro('Credenciais inválidas');
-            } else {
+            console.log("teste")
+            if (error.response.status === 401 || error.response.status === 403) {
+                setErro(error.response.data.msg || 'Credenciais inválidas');
+            }
+             else {
                 setErro('Erro ao tentar fazer login');
             }
         }

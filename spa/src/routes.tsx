@@ -14,6 +14,8 @@ import Admin from "./Pages/Admin/Admin.tsx";
 import SobreInstituto from "./Pages/SobreInstituto/SobreInstituto.tsx"
 import FaleConosco  from "./Pages/FaleConosco/FaleConosco.tsx";
 import QueroApoiar from "./Pages/QueroApoiar/QueroApoiar.tsx";
+import CreateUser from "./Pages/Admin/Usuarios/_components/CreateUser.tsx";
+import UpdateUser from "./Pages/Admin/Usuarios/_components/UpdateUser.tsx";
 import Projetos from "./Pages/Projetos/Projetos.tsx"
 
 export default function AppRouter() {
@@ -39,6 +41,8 @@ export default function AppRouter() {
           >
             <Route index element={<AdminDashboard />} />
             <Route path="/admin/usuarios" element={<Usuarios />}/>
+            <Route path="/admin/usuarios/create" element={<CreateUser />} />
+            <Route path="/admin/usuarios/:id/update" element={<UpdateUser />} />
           </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

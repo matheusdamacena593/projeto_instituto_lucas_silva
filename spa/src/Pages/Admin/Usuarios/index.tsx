@@ -12,13 +12,19 @@ import {
   Col,
   Alert,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
+interface ApiFeedback {
+  msg: string;
+  style: "success" | "danger" | "warning" | "info";
+}
 
 interface Usuario {
   id: number;
   name: string;
   username: string;
   email: string;
-  status: "active" | "inactive";
+  status: true | false;
 }
 
 export default function Usuarios() {
@@ -26,11 +32,18 @@ export default function Usuarios() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [apiFeedback, setApiFeedback] = useState<ApiFeedback | null>(null);
+
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const usuarioLogado = user.username;
+
+  const navigate = useNavigate()
+
   useEffect(() => {
     async function fetchUsuarios() {
       try {
         setLoading(true);
-        const response = await apiService.get("/api/usuarios");
+        const response = await apiService.get("/api/admin/usuarios");
         setUsuarios(response.data.usuarios);
         setError(null);
       } catch (err) {
@@ -45,28 +58,40 @@ export default function Usuarios() {
   }, []);
 
   const handleCreate = () => {
-    // Navegação para tela de criação
+    navigate("/admin/usuarios/create");
   };
 
   const handleEdit = (user: Usuario) => {
-    // Navegação para tela de edição
-    console.log(user);
+    navigate(`/admin/usuarios/${user.id}/update`);
   };
 
-  const handleDelete = (user: Usuario) => {
-    if (window.confirm(`Deseja excluir o usuário ${user.name}?`)) {
+  const handleDelete = async (user: Usuario) => {
+    setApiFeedback(null);
+    if (!window.confirm(`Deseja excluir o usuário ${user.name}?`)) return;
+
+    try {
+      const response = await apiService.delete(`/api/admin/usuarios/${user.id}`, {
+        data: { username: usuarioLogado } // Enviar username logado no body
+      });
       setUsuarios(usuarios.filter((u) => u.id !== user.id));
+      setApiFeedback(response.data.msg)
+    } catch (error: any) {
+      setApiFeedback({
+        msg: error.response?.data?.msg || "Erro desconhecido",
+        style: "danger"
+      });
     }
   };
 
   const getStatusBadge = (status: string) => (
-    <Badge bg={status === "active" ? "success" : "secondary"}>
-      {status === "active" ? "Ativo" : "Inativo"}
+    <Badge bg={status === "ativo" ? "success" : "secondary"}>
+      {status === "ativo" ? "Ativo" : "Inativo"}
     </Badge>
   );
 
   return (
     <div className="container py-4">
+      {apiFeedback && <Alert variant={apiFeedback.style}>{apiFeedback.msg}</Alert>}
       {/* Header responsivo */}
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
         <h2 className="mb-0">Lista de Usuários</h2>
@@ -102,7 +127,7 @@ export default function Usuarios() {
                       <div>
                         <h5 className="mb-1">{usuario.name}</h5>
                         <p className="mb-1 text-muted small">{usuario.email}</p>
-                        {getStatusBadge(usuario.status)}
+                        {getStatusBadge(usuario.status ? "ativo" : "inativo")}
                       </div>
                     </div>
 
