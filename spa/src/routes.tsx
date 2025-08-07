@@ -17,6 +17,9 @@ import QueroApoiar from "./Pages/QueroApoiar/QueroApoiar.tsx";
 import CreateUser from "./Pages/Admin/Usuarios/_components/CreateUser.tsx";
 import UpdateUser from "./Pages/Admin/Usuarios/_components/UpdateUser.tsx";
 import Projetos from "./Pages/Projetos/Projetos.tsx"
+import ProjetosAdmin from "./Pages/Admin/Projetos/Projetos.tsx";
+import CreateProjeto from "./Pages/Admin/Projetos/_components/CreateProjeto.tsx";
+import UpdateProjeto from "./Pages/Admin/Projetos/_components/UpdateProjeto.tsx";
 
 export default function AppRouter() {
   return (
@@ -43,6 +46,9 @@ export default function AppRouter() {
             <Route path="/admin/usuarios" element={<Usuarios />}/>
             <Route path="/admin/usuarios/create" element={<CreateUser />} />
             <Route path="/admin/usuarios/:id/update" element={<UpdateUser />} />
+            <Route path="/admin/projetos/create" element={<CreateProjeto />} />
+            <Route path="/admin/projetos/:id/update" element={<UpdateProjeto />} />
+            <Route path="/admin/projetos" element={<ProjetosAdmin/>}/>
           </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
