@@ -29,7 +29,7 @@ export default function UpdateProjeto() {
   const [errors, setErrors] = useState<any>({});
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [apiFeedback, setApiFeedback] = useState<{ message: string; style: string } | null>(null);
+  const [, setApiFeedback] = useState<{ message: string; style: string } | null>(null);
 
 
   useEffect(() => {

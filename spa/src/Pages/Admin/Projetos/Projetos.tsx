@@ -25,7 +25,7 @@ interface Projeto {
     dataInscricao: Date;
     dataInicio: Date;
     vagas: number;
-    imagem: string | null; // caminho ou URL da imagem, ou null
+    imagem: string | null;
 }
 
 export default function ProjetosAdmin() {
@@ -34,9 +34,6 @@ export default function ProjetosAdmin() {
     const [error, setError] = useState<string | null>(null);
 
     const [apiFeedback, setApiFeedback] = useState<ApiFeedback | null>(null);
-
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    const usuarioLogado = user.username;
 
     const navigate = useNavigate()
 

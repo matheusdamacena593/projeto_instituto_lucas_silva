@@ -18,6 +18,7 @@ class Projeto extends Model
         'data_inicio',
         'vagas',
         'imagem',
+        'usuario_id',
     ];
 
     protected $casts = [
@@ -25,4 +26,9 @@ class Projeto extends Model
         'data_inicio' => 'date',
         'vagas' => 'integer',
     ];
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'usuario_id');
+    }
 }
