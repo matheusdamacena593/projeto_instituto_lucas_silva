@@ -9,11 +9,20 @@ return new class extends Migration
     public function up(): void
     {
         DB::table('usuarios')->insert([
-            'name' => 'Administrador',
-            'email' => 'admin@gmail.com',
-            'username' => 'admin',
-            'password' => bcrypt('senha123'),
-            'status' => true
+            [
+                'name' => 'Bruno',
+                'email' => 'bruno@gmail.com',
+                'username' => 'bruno',
+                'password' => bcrypt('senha123'),
+                'status' => true
+            ],
+            [
+                'name' => 'Matheus',
+                'email' => 'matheus@gmail.com',
+                'username' => 'matheus',
+                'password' => bcrypt('senha123'),
+                'status' => true
+            ]
         ]);
     }
 
