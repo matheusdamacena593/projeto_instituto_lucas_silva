@@ -8,8 +8,8 @@ interface Projeto {
   id: number;
   titulo: string;
   publicoAlvo: string;
-  dataInscricao: Date;
-  dataInicio: Date;
+  dataInscricao: string;
+  dataInicio: string;
   vagas: number;
   imagem: string; // pode ser URL da imagem
 }
